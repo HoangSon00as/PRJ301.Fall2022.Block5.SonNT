@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <script>
+            function validateUsername()
+            {
+                var username = document.getElementById("username").value;
+                var pattern = /^[a-zA-Z0-9]{6,32}$/;
+                return pattern.test(username);
+            }
+            
+            function validateEmail()
+            {
+                var email = document.getElementById("email").value;
+                var pattern = /^\S+@\S+\.\S+$/;
+                return pattern.test(email);
+            }
+            
+            function validateConfirm()
+            {
+                var email = document.getElementById("email").value;
+                var confirm = document.getElementById("confirm").value;
+                var pattern = /^\S+@\S+\.\S+$/;
+                return pattern.test(confirm) && confirm === email;                
+            }
+            
+            function validate()
+            {
+                var isPassed = true;
+                if (!validateUsername())
+                {
+                    document.getElementById("validateUsername").innerHTML
+                            = "username must constain 6 to 32 characters";
+                    isPassed = false;
+                }
+                else{
+                    document.getElementById("validateUsername").innerHTML
+                            = "";
+                }
+                
+                if (!validateEmail()){
+                    document.getElementById("validateEmail").innerHTML
+                            = "Invalid email";
+                    isPassed = false;               
+                }else{
+                    document.getElementById("validateEmail").innerHTML
+                            = "";
+                }
+                
+                if (!validateConfirm()){
+                    document.getElementById("validateConfirm").innerHTML
+                            = "Confirm email must be equal to email";
+                    isPassed = false;               
+                }else{
+                    document.getElementById("validateConfirm").innerHTML
+                            = "";
+                }
+                
+                if (isPassed){
+                    document.getElementById("frmRegister").submit();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="register" method="POST" id="frmRegister"> 
+            <table >
+                <tr>
+                    <td>Username<td>
+                    <td><input type="text" name="username" id="username" /><td>
+                    <td><span style="color: red;" id="validateUsername"></span><td>
+                </tr>                
+                <tr>
+                    <td>Email<td>
+                    <td><input type="text" name="email" id="email" /><td>
+                    <td><span style="color: red;" id="validateEmail"></span><td>
+                </tr>
+                <tr>
+                    <td>Confirm Email<td>
+                    <td><input type="text" name="confirm" id="confirm" /><td>
+                    <td><span style="color: red;" id="validateConfirm"></span><td>
+                </tr>                
+                <tr>
+                    <td colspan="3">
+                        <input type="button" onclick="validate();" value="Save"/>
+                    <td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
